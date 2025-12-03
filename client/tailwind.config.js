@@ -8,40 +8,32 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#faf5ff',
-          100: '#f3e8ff',
-          200: '#e9d5ff',
-          300: '#d8b4fe',
-          400: '#c084fc',
-          500: '#a855f7',
-          600: '#9333ea',
-          700: '#7e22ce',
-          800: '#6b21a8',
-          900: '#581c87',
+          50: '#eef2ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
         },
-        neon: {
-          blue: '#00d4ff',
-          purple: '#b84aff',
-          pink: '#ff006e',
+        accent: {
+          pink: '#ec4899',
+          purple: '#8b5cf6',
+          blue: '#3b82f6',
+          green: '#10b981',
+          orange: '#f59e0b',
         }
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
-      animation: {
-        'slide-up': 'slideUp 0.5s ease-out',
-        'fade-in': 'fadeIn 0.3s ease-in',
-        'bounce-slow': 'bounce 2s infinite',
-      },
-      keyframes: {
-        slideUp: {
-          '0%': { transform: 'translateY(100px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        }
+      boxShadow: {
+        'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
+        'soft-lg': '0 4px 12px rgba(0, 0, 0, 0.12)',
+        'card': '0 1px 3px rgba(0, 0, 0, 0.06)',
       }
     },
   },

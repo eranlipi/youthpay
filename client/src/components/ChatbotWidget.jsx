@@ -28,7 +28,6 @@ function ChatbotWidget() {
   const [messages, setMessages] = useState([
     { type: 'bot', text: 'היי! 👋 יש לך שאלה על זכויות עובדים?' }
   ])
-  const [selectedQuestion, setSelectedQuestion] = useState(null)
 
   const handleQuestionClick = (qa) => {
     setMessages([
@@ -36,12 +35,10 @@ function ChatbotWidget() {
       { type: 'user', text: qa.q },
       { type: 'bot', text: qa.a }
     ])
-    setSelectedQuestion(null)
   }
 
   const resetChat = () => {
     setMessages([{ type: 'bot', text: 'היי! 👋 יש לך שאלה על זכויות עובדים?' }])
-    setSelectedQuestion(null)
   }
 
   return (
@@ -49,30 +46,30 @@ function ChatbotWidget() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 left-6 w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center text-3xl z-50 neon-glow"
+        className="fixed bottom-6 left-6 w-14 h-14 gradient-primary rounded-full shadow-soft-lg hover:shadow-xl transform hover:scale-110 transition-all duration-200 flex items-center justify-center text-2xl z-50"
       >
         {isOpen ? '✕' : '💬'}
       </button>
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 left-6 w-80 h-96 bg-gradient-to-br from-purple-900/95 to-indigo-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-purple-500/50 flex flex-col z-50 animate-slide-up">
+        <div className="fixed bottom-24 left-6 w-80 h-96 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col z-50 animate-slide-up">
           {/* Header */}
-          <div className="p-4 border-b border-purple-500/30 flex items-center justify-between">
-            <div>
-              <h3 className="font-bold text-lg">צ'אטבוט YouthPay</h3>
-              <p className="text-xs text-purple-300">שואל ואני עונה!</p>
+          <div className="p-4 border-b border-gray-200 flex items-center justify-between gradient-primary rounded-t-2xl">
+            <div className="text-white">
+              <h3 className="font-bold text-base">צ'אטבוט YouthPay</h3>
+              <p className="text-xs opacity-90">שואל ואני עונה!</p>
             </div>
             <button
               onClick={resetChat}
-              className="text-purple-300 hover:text-white text-sm"
+              className="text-white hover:bg-white/20 rounded-lg p-1.5 transition-colors text-sm"
             >
-              🔄 איפוס
+              🔄
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -83,8 +80,8 @@ function ChatbotWidget() {
                 <div
                   className={`inline-block px-4 py-2 rounded-2xl max-w-[85%] ${
                     msg.type === 'bot'
-                      ? 'bg-purple-600/50 text-white'
-                      : 'bg-pink-600/50 text-white'
+                      ? 'bg-white text-gray-800 border border-gray-200'
+                      : 'gradient-primary text-white'
                   }`}
                 >
                   <p className="text-sm leading-relaxed">{msg.text}</p>
@@ -95,14 +92,14 @@ function ChatbotWidget() {
             {/* Question Options */}
             {messages.length <= 2 && (
               <div className="space-y-2 mt-4">
-                <p className="text-xs text-purple-300 text-center mb-2">
+                <p className="text-xs text-gray-500 text-center mb-2 font-semibold">
                   בחר שאלה:
                 </p>
                 {QA_PAIRS.map((qa, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleQuestionClick(qa)}
-                    className="w-full text-right px-3 py-2 bg-purple-700/30 hover:bg-purple-600/50 rounded-lg text-sm transition-all duration-200 border border-purple-500/30 hover:border-purple-400"
+                    className="w-full text-right px-3 py-2 bg-white hover:bg-gray-100 rounded-lg text-sm transition-all duration-200 border border-gray-200 hover:border-primary-400 text-gray-700"
                   >
                     {qa.q}
                   </button>
