@@ -1,0 +1,119 @@
+import { useState } from 'react'
+
+const QA_PAIRS = [
+  {
+    q: 'למה ניכו לי כסף מהשכר?',
+    a: 'ניכויים מהשכר כוללים בדרך כלל: ביטוח לאומי (3-7%), מס הכנסה (אם השכר מעל הסף), ופנסיה. זה חוקי ונורמלי!'
+  },
+  {
+    q: 'מה זה שעות נוספות?',
+    a: 'שעות נוספות הן שעות שעבדת מעבר ל-8 שעות ביום או 43 שעות בשבוע. מגיע לך תוספת של 25% או 50% תלוי בכמות השעות!'
+  },
+  {
+    q: 'מה זה שכר מינימום?',
+    a: 'שכר מינימום הוא השכר המינימלי שמעסיק חייב לשלם לפי חוק. הוא משתנה לפי גיל: מתחת ל-16, 16-18, ומעל 18.'
+  },
+  {
+    q: 'האם יכולים לפטר אותי ככה סתם?',
+    a: 'לא! יש כללים לפיטורים. בתקופת ניסיון (3 חודשים ראשונים) זה קל יותר, אבל אחרי זה צריך סיבה מוצדקת והתראה מראש.'
+  },
+  {
+    q: 'מה זה דמי הבראה?',
+    a: 'דמי הבראה זה כסף שמגיע לך פעם בשנה למטרת נופש. זה בערך 378 ש״ח לחודש עבודה (נכון ל-2024).'
+  }
+]
+
+function ChatbotWidget() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [messages, setMessages] = useState([
+    { type: 'bot', text: 'היי! 👋 יש לך שאלה על זכויות עובדים?' }
+  ])
+  const [selectedQuestion, setSelectedQuestion] = useState(null)
+
+  const handleQuestionClick = (qa) => {
+    setMessages([
+      ...messages,
+      { type: 'user', text: qa.q },
+      { type: 'bot', text: qa.a }
+    ])
+    setSelectedQuestion(null)
+  }
+
+  const resetChat = () => {
+    setMessages([{ type: 'bot', text: 'היי! 👋 יש לך שאלה על זכויות עובדים?' }])
+    setSelectedQuestion(null)
+  }
+
+  return (
+    <>
+      {/* Floating Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 left-6 w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center text-3xl z-50 neon-glow"
+      >
+        {isOpen ? '✕' : '💬'}
+      </button>
+
+      {/* Chat Window */}
+      {isOpen && (
+        <div className="fixed bottom-24 left-6 w-80 h-96 bg-gradient-to-br from-purple-900/95 to-indigo-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-purple-500/50 flex flex-col z-50 animate-slide-up">
+          {/* Header */}
+          <div className="p-4 border-b border-purple-500/30 flex items-center justify-between">
+            <div>
+              <h3 className="font-bold text-lg">צ'אטבוט YouthPay</h3>
+              <p className="text-xs text-purple-300">שואל ואני עונה!</p>
+            </div>
+            <button
+              onClick={resetChat}
+              className="text-purple-300 hover:text-white text-sm"
+            >
+              🔄 איפוס
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`${
+                  msg.type === 'bot' ? 'text-right' : 'text-left'
+                }`}
+              >
+                <div
+                  className={`inline-block px-4 py-2 rounded-2xl max-w-[85%] ${
+                    msg.type === 'bot'
+                      ? 'bg-purple-600/50 text-white'
+                      : 'bg-pink-600/50 text-white'
+                  }`}
+                >
+                  <p className="text-sm leading-relaxed">{msg.text}</p>
+                </div>
+              </div>
+            ))}
+
+            {/* Question Options */}
+            {messages.length <= 2 && (
+              <div className="space-y-2 mt-4">
+                <p className="text-xs text-purple-300 text-center mb-2">
+                  בחר שאלה:
+                </p>
+                {QA_PAIRS.map((qa, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleQuestionClick(qa)}
+                    className="w-full text-right px-3 py-2 bg-purple-700/30 hover:bg-purple-600/50 rounded-lg text-sm transition-all duration-200 border border-purple-500/30 hover:border-purple-400"
+                  >
+                    {qa.q}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+export default ChatbotWidget

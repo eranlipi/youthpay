@@ -1,0 +1,207 @@
+YouthPay - Complete Folder Structure
+====================================
+
+youthpay/
+│
+├── 📄 package.json                 # Root package.json - backend dependencies & build scripts
+├── 📄 package-lock.json            # NPM lock file (auto-generated)
+├── 📄 .gitignore                   # Git ignore rules (node_modules, dist, etc.)
+├── 📄 render.yaml                  # Render.com deployment configuration
+│
+├── 📘 README.md                    # Complete project documentation
+├── 📘 DEPLOYMENT.md                # Step-by-step deployment guide for Render.com
+├── 📘 QUICKSTART.md                # 5-minute quick start guide
+├── 📘 PROJECT_SUMMARY.md           # Comprehensive project overview
+├── 📘 FOLDER_STRUCTURE.txt         # This file - visual folder tree
+│
+├── 📁 server/                      # BACKEND - Express.js API
+│   │
+│   ├── 📄 index.js                # Express server entry point
+│   │                               # - Configures Express app
+│   │                               # - Registers API routes
+│   │                               # - Serves static frontend files
+│   │                               # - Handles SPA routing (catch-all)
+│   │
+│   └── 📁 routes/                 # API Route Handlers
+│       │
+│       ├── 📄 payslip.js          # POST /api/payslip/analyze
+│       │                           # - Analyzes payslip (mock data)
+│       │                           # - Returns salary breakdown
+│       │
+│       ├── 📄 contract.js         # POST /api/contract/analyze
+│       │                           # - Checks contract issues (mock)
+│       │                           # - Returns categorized issues
+│       │
+│       └── 📄 rights.js           # POST /api/rights/check
+│                                   # - Validates wage vs minimum wage
+│                                   # - Calculates based on age & work type
+│
+└── 📁 client/                     # FRONTEND - React + Vite
+    │
+    ├── 📄 package.json            # Frontend dependencies
+    ├── 📄 vite.config.js          # Vite build configuration
+    ├── 📄 tailwind.config.js      # TailwindCSS theme & configuration
+    ├── 📄 postcss.config.js       # PostCSS configuration for Tailwind
+    ├── 📄 index.html              # HTML entry point (with RTL support)
+    │
+    └── 📁 src/                    # React Source Code
+        │
+        ├── 📄 main.jsx            # React entry point - renders App
+        ├── 📄 App.jsx             # Main app component with React Router
+        │                           # - Defines all routes
+        │                           # - Wraps pages in Layout
+        │
+        ├── 📁 styles/             # Global Styles
+        │   └── 📄 index.css       # - Tailwind imports
+        │                           # - Custom CSS utilities
+        │                           # - RTL support
+        │                           # - Animations & effects
+        │
+        ├── 📁 components/         # Reusable React Components
+        │   │
+        │   ├── 📄 Layout.jsx      # Main layout wrapper
+        │   │                       # - Header with logo
+        │   │                       # - Footer with disclaimer
+        │   │                       # - Integrates ChatbotWidget
+        │   │
+        │   ├── 📄 Card.jsx        # Social media style card component
+        │   │                       # - Props: title, subtitle, emoji, color
+        │   │                       # - Hover effects & animations
+        │   │                       # - Color variants (6 colors)
+        │   │
+        │   ├── 📄 Stepper.jsx     # Step indicator for wizards
+        │   │                       # - Visual progress indicator
+        │   │                       # - Shows current/completed steps
+        │   │                       # - Animated transitions
+        │   │
+        │   └── 📄 ChatbotWidget.jsx # Floating chatbot widget
+        │                           # - Floating button (bottom-left)
+        │                           # - Chat interface
+        │                           # - 5 predefined Q&A pairs
+        │
+        └── 📁 pages/              # Page Components (Routes)
+            │
+            ├── 📄 Home.jsx        # Landing page (/)
+            │                       # - Hero section
+            │                       # - 3 feature cards (navigation)
+            │                       # - Info banner
+            │
+            ├── 📄 UploadPayslip.jsx # Payslip analyzer (/upload-payslip)
+            │                       # - File upload interface
+            │                       # - Calls /api/payslip/analyze
+            │                       # - Displays results as cards
+            │                       # - Loading state
+            │
+            ├── 📄 ContractAnalyzer.jsx # Contract checker (/contract-analyzer)
+            │                       # - File upload for contracts
+            │                       # - Calls /api/contract/analyze
+            │                       # - Shows issue cards by severity
+            │                       # - Summary statistics
+            │
+            └── 📄 RightsChecker.jsx # Rights wizard (/rights-checker)
+                                    # - 4-step wizard with Stepper
+                                    # - Collects: age, wage, work type, hours
+                                    # - Calls /api/rights/check
+                                    # - Displays results with advice
+
+
+GENERATED FILES (after build)
+==============================
+
+client/dist/                       # Built frontend (created by `npm run build`)
+├── index.html                     # Processed HTML
+├── assets/
+│   ├── index-[hash].js           # Bundled React app
+│   └── index-[hash].css          # Compiled TailwindCSS
+└── vite.svg                       # Assets
+
+
+TOTAL FILE COUNT
+================
+
+Documentation:     5 files (README, DEPLOYMENT, QUICKSTART, PROJECT_SUMMARY, this file)
+Configuration:     6 files (package.json x2, vite, tailwind, postcss, render.yaml)
+Backend:           4 files (server/index.js + 3 routes)
+Frontend:          14 files (1 main + 1 App + 4 components + 4 pages + 1 CSS + 1 HTML)
+Git:               1 file (.gitignore)
+-------------------
+Total:             30 source files
+
+
+KEY DIRECTORIES
+===============
+
+server/            Backend Express API
+server/routes/     API endpoint handlers
+client/            Frontend React app
+client/src/        React source code
+client/src/components/    Reusable UI components
+client/src/pages/        Page components (routes)
+client/src/styles/       Global CSS
+client/dist/       Built frontend (after `npm run build`)
+
+
+IMPORTANT FILES FOR DEPLOYMENT
+===============================
+
+✓ render.yaml                  Render configuration
+✓ package.json                 Root dependencies & scripts
+✓ server/index.js              Server entry point
+✓ client/package.json          Frontend dependencies
+✓ client/vite.config.js        Build configuration
+✓ .gitignore                   Git ignore rules
+
+
+BUILD FLOW
+==========
+
+1. npm install                 → Install backend deps
+2. npm run install-client      → Install frontend deps
+3. npm run build-client        → Build React to client/dist/
+4. npm start                   → Start Express server
+                                  ├─ Serve API at /api/*
+                                  └─ Serve frontend from client/dist/
+
+
+ROUTES (Frontend)
+=================
+
+/                              Home page
+/upload-payslip                Payslip analyzer
+/contract-analyzer             Contract checker
+/rights-checker                Rights verification wizard
+
+
+API ENDPOINTS (Backend)
+=======================
+
+POST /api/payslip/analyze      Analyze payslip
+POST /api/contract/analyze     Check contract
+POST /api/rights/check         Verify wage rights
+
+
+TECH STACK SUMMARY
+==================
+
+Backend:
+  - Node.js 18+
+  - Express.js 4.x
+  - CORS enabled
+  - JSON API
+
+Frontend:
+  - React 18
+  - Vite 5.x
+  - TailwindCSS 3.x
+  - React Router 6.x
+  - RTL Support
+
+Deployment:
+  - Render.com
+  - Single web service
+  - Automatic builds
+  - Free tier available
+
+
+STATUS: ✅ COMPLETE & READY TO USE
+===================================
